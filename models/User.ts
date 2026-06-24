@@ -1,4 +1,4 @@
-import { DataType, Model } from "sequelize";
+import { DataTypes, Model } from "sequelize";
 import sequelize from "../config/database.ts";
 
 class User extends Model {}
