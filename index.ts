@@ -5,7 +5,10 @@ const port = 5000;
 
 import sequelize from './config/database';
 
+import router from './routes/userRoutes';
+
 app.use(express.json());
+app.use('/users', router);
 
 async function connect() {
     try {
