@@ -54,7 +54,42 @@ function validateUpdate (req: Request, res: Response, next: NextFunction) {
     next();
 }
 
+function validateContact (req: Request, res: Response, next: NextFunction) {
+    const { name, phone_number } = req.body;
+    const errors = [];
+
+    if (!name) {
+        errors.push('Contact name cannot be empty');
+    } else if (typeof name !== 'string') {
+        errors.push('Contact name must be text');
+    } else if (name.trim().length < 3) {
+        errors.push('Contact name must be 3 characters or more');
+    }
+
+    const phoneRegex = /^[0-9]+$/;
+
+    if (!phone_number) {
+        errors.push('Phone number cannot be empty');
+    } else if (typeof phone_number !== 'string') {
+        errors.push('Phone number must be text');
+    } else if (!phoneRegex.test(phone_number.trim())) {
+        errors.push('Invalid phone number format');
+    } else if (phone_number.trim().length < 10) {
+        errors.push('phone number must be 10 characters or more');
+    }
+
+    if (errors.length > 0) {
+        return res.status(400).json({
+            success: false,
+            errors: errors
+        });
+    }
+
+    next();
+}
+
 export {
     validateUser,
-    validateUpdate
+    validateUpdate,
+    validateContact
 }
