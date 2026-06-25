@@ -75,7 +75,7 @@ function validateContact (req: Request, res: Response, next: NextFunction) {
     } else if (!phoneRegex.test(phone_number.trim())) {
         errors.push('Invalid phone number format');
     } else if (phone_number.trim().length < 10) {
-        errors.push('phone number must be 10 characters or more');
+        errors.push('Phone number must be 10 characters or more');
     }
 
     if (errors.length > 0) {
