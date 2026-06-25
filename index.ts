@@ -1,15 +1,17 @@
 import express from 'express';
-
-const app = express();
-const port = 5000;
-
+import swaggerUi from 'swagger-ui-express';
+import swaggerDocs from './config/swagger.ts';
 import sequelize from './config/database';
 
 import routes from './routes';
 import errorHandler from './middleware/errorHandler.ts';
 
+const app = express();
+const port = 5000;
+
 app.use(express.json());
 app.use('/', routes);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 app.use(errorHandler);
 
 async function connect() {
