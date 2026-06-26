@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from "express";
+import { type Request, type Response, type NextFunction } from "express";
 import { User } from "../models";
 
 // CRUD User
@@ -27,7 +27,7 @@ const createUser = async (req: Request, res: Response, next: NextFunction) => {
 const deleteUser = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { id } = req.params;
-        const user = await User.findByPk(id);
+        const user = await User.findByPk(Number(id));
 
         if (!user) {
             return res.status(404).json({
@@ -60,7 +60,7 @@ const updateUsername = async (req: Request, res: Response, next: NextFunction) =
             });
         }
 
-        const user = await User.findByPk(id);
+        const user = await User.findByPk(Number(id));
 
         if (!user) {
             return res.status(404).json({
@@ -85,7 +85,7 @@ const updateUsername = async (req: Request, res: Response, next: NextFunction) =
 const getUserbyId = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { id } = req.params;
-        const user = await User.findByPk(id);
+        const user = await User.findByPk(Number(id));
 
         if (!user) {
             return res.status(404).json({

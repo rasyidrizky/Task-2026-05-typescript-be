@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from "express";
+import { type Request, type Response, type NextFunction } from "express";
 
 function validateUser (req: Request, res: Response, next: NextFunction) {
     const { username, email } = req.body;

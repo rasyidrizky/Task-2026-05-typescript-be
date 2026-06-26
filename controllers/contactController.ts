@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from "express";
+import { type Request, type Response, type NextFunction } from "express";
 import { Contact, User } from "../models";
 
 const getAllContacts = async (req: Request, res: Response, next: NextFunction) => {
@@ -15,7 +15,7 @@ const getContactUser = async (req: Request, res: Response, next: NextFunction) =
     try {
         const { userId } = req.params;
 
-        const user = await User.findByPk(userId);
+        const user = await User.findByPk(Number(userId));
         if (!user) {
             return res.status(404).json({
                 success: false,
@@ -43,7 +43,7 @@ const createContact = async (req: Request, res: Response, next: NextFunction) =>
         const { userId } = req.params;
         const { name, phone_number } = req.body;
 
-        const user = await User.findByPk(userId);
+        const user = await User.findByPk(Number(userId));
         if (!user) {
             return res.status(404).json({
                 success: false,
@@ -70,7 +70,7 @@ const createContact = async (req: Request, res: Response, next: NextFunction) =>
 const getContactbyId = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { id } = req.params;
-        const contact = await Contact.findByPk(id);
+        const contact = await Contact.findByPk(Number(id));
 
         if (!contact) {
             return res.status(404).json({
@@ -92,7 +92,7 @@ const updateContact = async (req: Request, res: Response, next: NextFunction) =>
     try {
         const { id } = req.params;
         const { name, phone_number } = req.body;
-        const contact = await Contact.findByPk(id);
+        const contact = await Contact.findByPk(Number(id));
 
         if (!contact) {
             return res.status(404).json({ 
@@ -118,7 +118,7 @@ const updateContact = async (req: Request, res: Response, next: NextFunction) =>
 const deleteContact = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { id } = req.params;
-        const contact = await Contact.findByPk(id);
+        const contact = await Contact.findByPk(Number(id));
 
         if (!contact) {
             return res.status(404).json({
