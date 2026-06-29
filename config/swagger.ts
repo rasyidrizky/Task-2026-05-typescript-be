@@ -96,19 +96,8 @@ const swaggerOptions: Options = {
             },
 
             '/users/{userId}/contacts': {
-                get: {
-                    tags: ['Contacts'],
-                    summary: 'Get all contacts owned by a user',
-                    parameters: [
-                        { in: 'path', name: 'userId', required: true, schema: { type: 'integer' }, description: 'Owner User ID' }
-                    ],
-                    responses: {
-                        '200': { description: 'OK' },
-                        '404': { description: 'User not found' }
-                    }
-                },
                 post: {
-                    tags: ['Contacts'],
+                    tags: ['Users'],
                     summary: 'Add a new contact to a user',
                     parameters: [
                         { in: 'path', name: 'userId', required: true, schema: { type: 'integer' }, description: 'Owner User ID' }
@@ -134,29 +123,7 @@ const swaggerOptions: Options = {
                 }
             },
 
-            '/contacts': {
-                get: {
-                    tags: ['Contacts'],
-                    summary: 'Return all contacts in the system',
-                    responses: {
-                        '200': { description: 'OK' },
-                        '500': { description: 'Internal server error' }
-                    }
-                }
-            },
-
             '/contacts/{id}': {
-                get: {
-                    tags: ['Contacts'],
-                    summary: 'Get specific contact detail by Contact ID',
-                    parameters: [
-                        { in: 'path', name: 'id', required: true, schema: { type: 'integer' } }
-                    ],
-                    responses: {
-                        '200': { description: 'OK' },
-                        '404': { description: 'Contact not found' }
-                    }
-                },
                 put: {
                     tags: ['Contacts'],
                     summary: 'Update contact details',

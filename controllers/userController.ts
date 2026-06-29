@@ -1,10 +1,15 @@
 import { type Request, type Response, type NextFunction } from "express";
-import { User } from "../models";
+import { User, Contact } from "../models";
 
 // CRUD User
 const getAllUsers = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const users = await User.findAll();
+        const users = await User.findAll({
+            include: [{
+                model: Contact,
+                attributes: ['id', 'name', 'phone_number']
+            }]
+        });
         console.log('All users:', JSON.stringify(users, null, 2));
         res.status(200).json({ success: true, data: users });
     } catch(error) {
@@ -85,7 +90,12 @@ const updateUsername = async (req: Request, res: Response, next: NextFunction) =
 const getUserbyId = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { id } = req.params;
-        const user = await User.findByPk(Number(id));
+        const user = await User.findByPk(Number(id), {
+            include: [{
+                model: Contact,
+                attributes: ['id', 'name', 'phone_number']
+            }]
+        });
 
         if (!user) {
             return res.status(404).json({

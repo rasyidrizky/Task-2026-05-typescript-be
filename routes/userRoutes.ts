@@ -11,7 +11,6 @@ router.post('/', validateUser, userController.createUser);
 router.delete('/:id', userController.deleteUser);
 router.put('/:id', validateUpdate, userController.updateUsername);
 
-router.get('/:userId/contacts', contactController.getContactUser);
 router.post('/:userId/contacts', validateContact, contactController.createContact);
 
 export default router;

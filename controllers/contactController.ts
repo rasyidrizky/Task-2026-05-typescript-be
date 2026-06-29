@@ -1,43 +1,6 @@
 import { type Request, type Response, type NextFunction } from "express";
 import { Contact, User } from "../models";
 
-const getAllContacts = async (req: Request, res: Response, next: NextFunction) => {
-    try {
-        const users = await Contact.findAll();
-        console.log('All contacts:', JSON.stringify(users, null, 2));
-        res.status(200).json({ success: true, data: users });
-    } catch(error) {
-        next(error);
-    }
-} 
-
-const getContactUser = async (req: Request, res: Response, next: NextFunction) => {
-    try {
-        const { userId } = req.params;
-
-        const user = await User.findByPk(Number(userId));
-        if (!user) {
-            return res.status(404).json({
-                success: false,
-                error: 'User not found'
-            });
-        }
-
-        const contacts = await Contact.findAll({
-            where: {
-                user_id: userId
-            }
-        });
-
-        res.status(200).json({ 
-            success: true, 
-            data: contacts
-        });
-    } catch(error) {
-        next(error);
-    }
-}
-
 const createContact = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { userId } = req.params;
@@ -63,27 +26,6 @@ const createContact = async (req: Request, res: Response, next: NextFunction) =>
             data: newContact
         });
     } catch(error) {
-        next(error);
-    }
-}
-
-const getContactbyId = async (req: Request, res: Response, next: NextFunction) => {
-    try {
-        const { id } = req.params;
-        const contact = await Contact.findByPk(Number(id));
-
-        if (!contact) {
-            return res.status(404).json({
-                success: false,
-                error: 'Contact not found'
-            });
-        }
-
-        res.status(200).json({
-            success: true,
-            data: contact
-        });
-    } catch (error) {
         next(error);
     }
 }
@@ -140,10 +82,7 @@ const deleteContact = async (req: Request, res: Response, next: NextFunction) =>
 }
 
 export {
-    getAllContacts,
-    getContactUser,
     createContact,
-    getContactbyId,
     updateContact,
     deleteContact
 }
